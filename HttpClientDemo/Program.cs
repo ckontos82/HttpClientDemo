@@ -4,12 +4,15 @@ namespace HttpClientDemo
 {
 	internal class Program
 	{
-		static void Main(string[] args)
+		static async Task Main(string[] args)
 		{
-			Console.WriteLine("Demo HTTP Client");
+			Console.WriteLine("Demo HTTP Client\n");
+
+			await GetAsync(sharedClient);
+			await GetFromJsonAsync(sharedClient);
 		}
 
-		private static HttpClient httpClient = new()
+		private static HttpClient sharedClient = new()
 		{
 			BaseAddress = new Uri("https://jsonplaceholder.typicode.com")
 		};
@@ -28,7 +31,7 @@ namespace HttpClientDemo
 		static async Task GetFromJsonAsync(HttpClient httpClient)
 		{
 			var todos = await httpClient.GetFromJsonAsync<List<Todo>>(
-				"todos?userId=1&completed=false");
+				"todos?userId=1&completed=true");
 
 			todos?.ForEach(Console.WriteLine);
             await Console.Out.WriteLineAsync();
