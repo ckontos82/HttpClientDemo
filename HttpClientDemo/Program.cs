@@ -34,7 +34,7 @@ namespace HttpClientDemo
 				"todos?userId=1&completed=true");
 
 			todos?.ForEach(Console.WriteLine);
-            await Console.Out.WriteLineAsync();
-        }
+			await Console.Out.WriteLineAsync();
+		}
 	}
 }
