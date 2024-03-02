@@ -62,6 +62,9 @@ namespace HttpClientDemo
 
 			response.EnsureSuccessStatusCode()
 				.WriteRequestToConsole();
+
+			var jsonResponse = await response.Content.ReadAsStringAsync();
+			Console.WriteLine($"{jsonResponse}\n");
 		}
 
 	}
