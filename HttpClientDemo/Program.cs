@@ -1,4 +1,6 @@
 ﻿using System.Net.Http.Json;
+using System.Text;
+using System.Text.Json;
 
 namespace HttpClientDemo
 {
@@ -36,5 +38,30 @@ namespace HttpClientDemo
 			todos?.ForEach(Console.WriteLine);
 			await Console.Out.WriteLineAsync();
 		}
+
+		static async Task PostAsync(HttpClient httpClient)
+		{
+			using StringContent jsonContent = new(
+				JsonSerializer.Serialize(
+					new
+					{
+						userId = 77,
+						id = 1,
+						title = "Posting Sample",
+						completed = false
+					}),
+					Encoding.UTF8,
+					"application/json"
+			);
+
+			using HttpResponseMessage response = await httpClient.PostAsync(
+				"todos",
+				jsonContent
+			);
+
+			response.EnsureSuccessStatusCode()
+				.WriteRequestToConsole();
+		}
+
 	}
 }
