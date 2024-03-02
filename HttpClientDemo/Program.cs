@@ -12,6 +12,7 @@ namespace HttpClientDemo
 
 			await GetAsync(sharedClient);
 			await GetFromJsonAsync(sharedClient);
+			await PostAsync(sharedClient);
 		}
 
 		private static HttpClient sharedClient = new()
